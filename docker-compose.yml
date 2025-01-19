@@ -1,0 +1,21 @@
+version: '3.9'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3005:3005" # Map port 3000 on the host to port 3000 in the container
+    volumes:
+      - .:/app # Mount the project directory to /app in the container
+      - /app/node_modules # Prevent overwriting node_modules in the container
+      - ./src:/app/src 
+    environment:
+      # Environment variables for the application
+      - PORT=3005
+      - MONGOURI=mongodb+srv://muhammedriyas:muhammedriyas@cluster0.spbkuiz.mongodb.net/for_you?retryWrites=true&w=majority&appName=Cluster0
+      - JWT_ACCESS_TOKEN_SECRET=oMH1ApCmnkforyou
+      - JWT_REFRESH_TOKEN_SECRET=9mWLehWXWEAAkoj0B2bTforyou
+      - URL=http://localhost:3005/
+    command: npm run dev # Run the app in development mode
